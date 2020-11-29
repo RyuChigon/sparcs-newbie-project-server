@@ -44,10 +44,24 @@ const Review = mongoose.model('Content', WriteSchema)
 
 router.post('/signup', async function (req, res) {
     const signUp = new SignUp({ id: req.body.id, pw: req.body.pw});
-    await signUp.save();
-    console.log("Hi");
-    res.status(200);
-    res.send(signUp);
+    const userList = await SignUp.find({ id: req.body.id });
+    console.log(userList);
+    if (req.body.id == "") {
+        console.log("no id");
+        res.status(404);
+        res.send("no id");
+    }
+    else if (userList != []) {
+        console.log("used id");
+        res.status(404);
+        res.send("used id");
+    }
+    else {
+        await signUp.save();
+        console.log("Hi");
+        res.status(200);
+        res.send(signUp);
+    }
 })
 
 router.post('/login', async function (req, res) {
