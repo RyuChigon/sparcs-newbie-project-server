@@ -51,7 +51,7 @@ router.post('/signup', async function (req, res) {
         res.status(404);
         res.send("no id");
     }
-    else if (userList != []) {
+    else if (userList.length !== 0) {
         console.log("used id");
         res.status(404);
         res.send("used id");
