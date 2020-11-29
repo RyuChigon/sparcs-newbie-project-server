@@ -45,7 +45,6 @@ const Review = mongoose.model('Content', WriteSchema)
 router.post('/signup', async function (req, res) {
     const signUp = new SignUp({ id: req.body.id, pw: req.body.pw});
     const userList = await SignUp.find({ id: req.body.id });
-    console.log(req.body);
     if (req.body.id == "") {
         console.log("no id");
         res.status(404);
