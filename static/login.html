@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login</title>
+    </head>
+    <body>
+        <div>
+            <form action="/login" method="post">
+                <input type="text" name="content">
+            </form>
+        </div>
+        <button class="post_send">Login</button>
+        <p class="result">result</p>
+
+        <script>
+            document.getElementsByClassName("post_send")[0].addEventListener('click', function() {
+                let input=document.forms[0].elements[0].value;
+                const url="http://localhost:8000/login-post";
+                sendAjax(url, input);
+            })
+            function sendAjax(url, input) {
+                let xhr_obj={"content":input};
+                let xhr_str=JSON.stringify(xhr_obj);
+                let xhr=new XMLHttpRequest();
+                xhr.open("post",url,true);
+                xhr.setRequestHeader('content-type', 'application/json');
+                xhr.send(xhr_str);
+
+                xhr.addEventListener('load', function() {
+                    let result=xhr.responseText;
+                    console.log(result);
+                    document.getElementsByClassName("result")[0].innerHTML=result;
+                })
+            }
+        </script>
+    </body>
+
+</html>
